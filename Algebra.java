@@ -25,6 +25,12 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
+		if (x2 < 0) {
+			for (int i = 0; i > x2; i--) {
+				x1--;
+			}
+			return x1;
+		}
 		for (int i = 0; i < x2; i++) {
 			x1++;
 		}
@@ -59,9 +65,9 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2
 	public static int div(int x1, int x2) {
-		int count=0;
-		while (x1>=x2) {
-			x1= minus(x1, x2);
+		int count = 0;
+		while (x1 >= x2) {
+			x1 = minus(x1, x2);
 			count++;
 		}
 		return count;
@@ -69,15 +75,17 @@ public class Algebra {
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		return minus(x1,(times(div(x1, x2), x2))) ;
+		return minus(x1, (times(div(x1, x2), x2)));
 	}
 
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
 		double epsilon = 0.01;
-		double g = x;
+		double g = x; // Initial guess
 		while (Math.abs(g * g - x) > epsilon) {
-		g = g - (g * g - x) / (2 * g);}
-		return (int)g;
+			g = minus((int) g, div(times((int) (g * g - x), 1), times(2, (int) g)));
+		}
+		return (int) g;
 	}
+
 }
