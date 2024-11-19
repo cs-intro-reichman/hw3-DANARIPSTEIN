@@ -53,6 +53,31 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if (x1 < 0 && x2 > 0) {
+			x1 = Math.abs(x1);
+			int x3 = x1;
+			for (int i = 2; i <= x2; i++) {
+				x3 = plus(x3, x1);
+			}
+			return -x3;
+		}
+		if (x1 > 0 && x2 < 0) {
+			x2 = Math.abs(x2);
+			int x3 = x1;
+			for (int i = 2; i <= x2; i++) {
+				x3 = plus(x3, x1);
+			}
+			return -x3;
+		}
+		if (x1 < 0 && x2 < 0) {
+			x2 = Math.abs(x2);
+			x1 = Math.abs(x1);
+			int x3 = x1;
+			for (int i = 2; i <= x2; i++) {
+				x3 = plus(x3, x1);
+			}
+			return x3;
+		}
 		int x3 = x1;
 		for (int i = 2; i <= x2; i++) {
 			x3 = plus(x3, x1);
@@ -63,6 +88,10 @@ public class Algebra {
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		int x3 = x;
+		if(x==0)
+		return 0;
+		if(n==0)
+		return 1;
 		for (int i = 1; i < n; i++) {
 			x3 = times(x3, x);
 		}
