@@ -53,6 +53,8 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if( x1 == 0 || x2 ==0 )
+		return 0;
 		if (x1 < 0 && x2 > 0) {
 			x1 = Math.abs(x1);
 			int x3 = x1;
@@ -100,13 +102,17 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2
 	public static int div(int x1, int x2) {
-		int count = 0;
-		while (x1 >= x2) {
-			x1 = minus(x1, x2);
-			count++;
-		}
-		return count;
-	}
+		if (x2 == 0) throw new ArithmeticException("Division by zero is undefined.");
+    boolean negativeResult = (x1 < 0 && x2 > 0) || (x1 > 0 && x2 < 0);
+    x1 = Math.abs(x1);
+    x2 = Math.abs(x2);
+    int count = 0;
+    while (x1 >= x2) {
+        x1 = minus(x1, x2);
+        count++;
+    }
+    return negativeResult ? -count : count;
+}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
