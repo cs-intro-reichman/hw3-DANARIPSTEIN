@@ -22,7 +22,6 @@ public class Algebra {
 		System.out.println(sqrt(263169));
 		System.out.println(sqrt(76123));
 	}
-
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
 		if (x2 < 0) {
@@ -36,7 +35,6 @@ public class Algebra {
 			}
 		return x1;
 	}
-
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
 		if (x2 < 0) {
@@ -50,7 +48,6 @@ public class Algebra {
 			}
 		return x1;
 	}
-
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		if (x1 == 0 || x2 == 0)
@@ -84,7 +81,6 @@ public class Algebra {
 		}
 		return x3;
 	}
-
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		int x3 = x;
@@ -97,7 +93,6 @@ public class Algebra {
 		}
 		return x3;
 	}
-
 	// Returns the integer part of x1 / x2
 	public static int div(int x1, int x2) {
 		if (x2 == 0)
@@ -117,15 +112,18 @@ public class Algebra {
 	public static int mod(int x1, int x2) {
 		return minus(x1, (times(div(x1, x2), x2)));
 	}
-
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
-		double epsilon = 0.01;
-		double g = x;
+		double epsilon = 0.01, L = 1.0, H = x;
+		double g = (L + H) / 2.0;
 		while (Math.abs(g * g - x) > epsilon) {
-			g = g - (g * g - x) / (2 * g);
+		if (g * g < x)
+		L = g;
+		else
+		H = g;
+		g = (L + H) / 2;
 		}
-		return (int) g;
+		return (int)g;
 	}
 
 }
