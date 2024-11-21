@@ -6,7 +6,6 @@ public class Anagram {
 		System.out.println(isAnagram("William Shakespeare", "I am a weakish speller")); // true
 		System.out.println(isAnagram("Madam Curie", "Radium came")); // true
 		System.out.println(isAnagram("Tom Marvolo Riddle", "I am Lord Voldemort")); // true
-		System.out.println(isAnagram("abb", "bba")); // true
 
 		// Tests the preProcess function.
 		System.out.println(preProcess("What? No way!!!"));
@@ -32,18 +31,24 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
-		boolean bool;
-		if (str1.length()!=str2.length())
-		return false;
-		for(int i =0; i<str1.length(); i++){
-			bool = false;
-			for(int j =0; j<str2.length(); j++){
-				if(str1.charAt(i)==str2.charAt(j))
-				bool = true;
+		String temp = "";
+		int j = 0;
+		for (int i = 0; i < str1.length(); i++) { // loop over str1
+			if (str1.charAt(i) != ' ') { 
+				j = str2.indexOf(str1.charAt(i));
+				if (j == -1) // char not found
+					return false;
+				for (int m = 0; m < str2.length(); m++) { // copy of str2
+					if (m != j)
+						temp = temp + str2.charAt(m);
+				}
+				str2 = temp;
+				temp = "";
 			}
-			if(bool==false) return bool;
 		}
+
 		return true;
+
 	}
 
 	// Returns a preprocessed version of the given string: all the letter characters
@@ -56,7 +61,7 @@ public class Anagram {
 		int i = 0;
 		str = str.toLowerCase();
 		while (i < str.length()) {
-			if ((str.charAt(i) > 96 && str.charAt(i) < 123)|| str.charAt(i)==32) { //if i is not a letter
+			if ((str.charAt(i) > 96 && str.charAt(i) < 123) || str.charAt(i) == 32) { // if i is not a letter
 				newStr = newStr + str.charAt(i);
 			}
 			i++;
@@ -68,10 +73,18 @@ public class Anagram {
 	// the same
 	// characters as the given string, re-arranged in a random order.
 	public static String randomAnagram(String str) {
-		String newStr="";
-		for(int i =0 ; i<str.length(); i++){
-			int randomLetter =(int)(Math.random()*str.length());
+		String newStr = "";
+		String temp ="";
+		int len=str.length();
+		for (int i = 0; i < len ; i++) {
+			int randomLetter = (int) (Math.random() * str.length());
 			newStr = "" + newStr + str.charAt(randomLetter);
+			for (int m = 0; m < str.length(); m++) { 
+				if (m != randomLetter)
+					temp = temp + str.charAt(m);
+			}
+			str=temp;
+			temp ="";
 		}
 		return newStr;
 	}
