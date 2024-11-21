@@ -114,16 +114,11 @@ public class Algebra {
 	}
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
-		double epsilon = 0.01, L = 1.0, H = x;
-		double g = (L + H) / 2.0;
-		while (Math.abs(g * g - x) > epsilon) {
-		if (g * g < x)
-		L = g;
-		else
-		H = g;
-		g = (L + H) / 2;
+		int result = 0;
+		while (times(result, result) <= x) {
+			result++;
 		}
-		return (int)g;
+		return minus(result, 1);
 	}
 
 }

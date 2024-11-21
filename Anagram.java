@@ -56,7 +56,7 @@ public class Anagram {
 		int i = 0;
 		str = str.toLowerCase();
 		while (i < str.length()) {
-			if (str.charAt(i) > 96 && str.charAt(i) < 123) { //if i is not a letter
+			if ((str.charAt(i) > 96 && str.charAt(i) < 123)|| str.charAt(i)==32) { //if i is not a letter
 				newStr = newStr + str.charAt(i);
 			}
 			i++;
